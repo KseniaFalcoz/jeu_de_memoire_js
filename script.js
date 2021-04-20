@@ -1,4 +1,4 @@
-const divResult = document.getElementById("resultat"); // document.querySelector("#resultat");
+const divResult = document.getElementById("result"); // document.querySelector("#result");
 
 var tabStart = [
     [0,0,0,0],
@@ -9,7 +9,7 @@ var tabStart = [
 
 var tabResult = createTabRandom();
 var firstClick = [];
-var cardsDisplay = 0;
+var cardsDisplay = 0; // pour le 1 click on valeur 1, por le 2-e valeur 2, donc on fait verification
 var ready = true; // pour afficher le 2-e image meme s'il ne corresponds pas
 
 displayTable()
@@ -54,20 +54,20 @@ function getImage(valeur) {
 }
 function matching(clickButton) { // onClick pour element clické
     if(ready) {
-        cardsDisplay++;
-
+    cardsDisplay++;
         var ligne = clickButton.substr(0,1); // decouper, recuperer le 1 valeur
         var colonne = clickButton.substr(2,1);
         tabStart[ligne][colonne] = tabResult[ligne][colonne]; 
-        displayTable();
-    
-        if(cardsDisplay > 1) { // > 1 - deux images clickés - on fait matchingication
+    displayTable();
+        if(cardsDisplay > 1) { // > 1 - deux images clickés - on fait verification
             ready = false;
             setTimeout(() => { // timer pour montres les images meme s'ils sont differons
                 //verification
                 if(tabStart[ligne][colonne] !== tabStart[firstClick[0]][firstClick[1]]) {
                     tabStart[ligne][colonne] = 0;
                     tabStart[firstClick[0]][firstClick[1]] = 0;
+                } else {
+                    bravo.play();
                 }
                 displayTable();
                 ready = true;
